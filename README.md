@@ -18,5 +18,23 @@ Download the MongoAI Driver Unity Package. (Only available to those part of Beta
 Import the Package in Unity
 Go to https://www.youtube.com/watch?v=FJ308O_f0IM at the 4:00 minute mark if you do not know how to import packages to Unity. It is a simple process.
 
-
 Change your .NET Scripting Runtime to .NET 4.x Equivalent. Restart your editor and change API Compatability Level to 4.0.
+
+Follow along with Box.cs
+
+## Setting up Your Class
+Define public variables at the top of your code.
+
+```
+    public float red = 0.2f;
+    public float green = 0.2f;
+    public float blue = 0.2f;
+```
+
+Now you also need to specify which variables you want to be considered genes. By default none will be. Add this code
+
+```
+public List<string> geneticProperties = new List<string>();
+```
+
+And modify in the Unity Editor to add the properties you want to be considered genes. Spell them exactly as they are in the code, *not* how they appear in the Editor. The Editor automatically reformats spacing and capitalization, so you must name them how they appear in the code.
