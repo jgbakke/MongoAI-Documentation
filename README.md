@@ -11,6 +11,8 @@ When running 1 instance, it took on average 53 generations--a long time for evol
 
 By collecting more data from every single instance, MongoAI enables faster evolution for your parameters. In a world where gamers are smart and always getting better, you need to quickly evolve, or your AI will no longer remain exciting and engaging to play against. The speed at which MongoAI enables evolution will present a challenge to your players and keep them involved with your game.
 
+Currently there is a Demo Mac App that you can download. The Demo app will soon be ported to Windows as well. The MongoAI Driver currently supports both Mac and Windows.
+
 ## Getting Started
 This is currently in Beta. If you would like to be a part of the Beta, please contact me.
 
@@ -23,7 +25,7 @@ Change your .NET Scripting Runtime to .NET 4.x Equivalent. Restart your editor a
 Follow along with Box.cs
 
 ## Setting up Your Class
-Define public variables at the top of your code.
+Define public variables at the top of your code. All genetic properties should be floats.
 
 ```
     public float red = 0.2f;
@@ -38,3 +40,24 @@ public List<string> geneticProperties = new List<string>();
 ```
 
 And modify in the Unity Editor to add the properties you want to be considered genes. Spell them exactly as they are in the code, *not* how they appear in the Editor. The Editor automatically reformats spacing and capitalization, so you must name them how they appear in the code.
+
+## Quick Evolution vs Caching
+You should decide if rapid evolution or caching is more important to you, and then follow the corresponding tutorial.
+
+Quick Evolution helps your AI evolve quicker. However, it is *slow*. Running a genetic algorithm and connecting to a cloud database is expensive. This is what the Demo app used because it is not concerned with performance. However, if you will be concerned with performance, this is not recommended.
+
+Caching does not evolve as fast because you load one giant batch of children and keep them cached. Therefore, as the game goes on, your cache does not evolve, because they are not being reloaded. This is fast because all you do is request a new child from the cache.
+
+## Quick Evolution
+
+Whenever you want to update your genetic properties, call this function.
+
+```
+MongoAI.manager.PopulateProperties(this, geneticProperties, <name of this class>, <Number of Chromosomes to fetch>, <mutation percent>, <crossover?>);
+```
+
+Number of chromosomes is how many will be retrieved. If you pick 5 for example, the 5 most fit individuals will be used in the Genetic Algorithm. 1 of these 5 at random will be chosen, and another 1 will be crossed over with it. Therefore, your new chromosome could be made up of the 4th and 5th most fit individuals.
+
+Mutation percent: On a scale of 0 to 1, each gene may vary by up to this much percent. For example, if you have a property x at 10, and a mutation of 0.1f, mutation can change it at random anywhere from 9.0 to 11.0.
+
+Crossover: True to enable genetic crossover, false otherwise. This increases genetic diversity.
