@@ -67,6 +67,8 @@ public class Box : MonoBehaviour {
         if (!prepopulate) {
             MongoAI.manager.PopulateProperties(this, geneticProperties, className, 2, 0.25f, false);
         } else if (prepopulate && Input.GetAxis("Jump") > 0.2f) {
+            // GetAxis(Jump) means "When space is pressed"
+            // What this does is if we are in cachine mode and press space, change to color from a cached chromosome
             MongoAI.manager.PopulateFromCache(this, geneticProperties, className, 2, 0.25f, false);
         }
         
