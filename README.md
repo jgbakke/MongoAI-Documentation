@@ -61,3 +61,43 @@ Number of chromosomes is how many will be retrieved. If you pick 5 for example, 
 Mutation percent: On a scale of 0 to 1, each gene may vary by up to this much percent. For example, if you have a property x at 10, and a mutation of 0.1f, mutation can change it at random anywhere from 9.0 to 11.0.
 
 Crossover: True to enable genetic crossover, false otherwise. This increases genetic diversity.
+
+## Caching
+
+If you want to cache properties instead, call this.
+
+```
+MongoAI.manager.CacheData(className, number in cache);
+```
+
+This generates however many offspring you want in the cache. Because MongoAI.manager is accessible to all classes, anybody can use the cache now. When you want to get updated genetic properties, just call
+
+```
+MongoAI.manager.PopulateFromCache(this, geneticProperties, <name of this class>, <Number of Chromosomes to fetch>, <mutation percent>, <crossover?>);
+```
+
+This works exactly the same as PopulateProperties except the data is already cached so it is very fast.
+
+## Saving Data
+When you want to save data call:
+
+```
+MongoAI.manager.CacheData(this, geneticProperties, className, AIHeuristic());
+```
+
+The last property should be a value that determines how fit the individual is, where higher is better. For example, AIHeuristic() is a function in the Demo App that returns 0 - the distance from the current color to the desired color. Therefore, closer colors will be considered more fit, and will thus be prioritized once they are sent to the database.
+
+This *does not* save it globally yet. It is cached for the time being, until you send it. The best practice for sending data is whenever you are not as concerned with performance. (For example, at the end of a level) You would call this when an enemy dies, for example, to cache it for now, but not send it yet.
+
+Once you are ready to send, call
+
+```
+MongoAI.manager.SendData(className);
+```
+
+If you want to clear all data for your class globally, call
+```
+MongoAI.manager.ClearData(className);
+```
+
+The reason why every funciton has a className parameter is so you can separate your parameters for different types of objects. For example, I want to simultaneously run Genetic Algorithms on Boxes and Circles, but I want them to have separate genes, so I use different class names and Stitch will know to put them in different collections.
