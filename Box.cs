@@ -43,6 +43,14 @@ public class Box : MonoBehaviour {
 
 
     void Start() {
+        if (!MongoAI.manager.HasInternetConnection()) {
+            // If we cannot connect to MongoAI, just destroy this
+            // This is for handling if the player is unable to connect to the remote database
+            // so they can continue to play even if they have no wifi
+            Debug.LogError("Connection to the database failed");
+            Destroy(this);
+        }
+        
         // Setup class variables
         className = GetType().Name; // The name of this class stored for the AI
         if(!prepopulate){MongoAI.manager.ClearData(className);} // We don't want it deleted if we are about to prepopulate
