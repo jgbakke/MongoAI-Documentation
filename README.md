@@ -95,9 +95,18 @@ Once you are ready to send, call
 MongoAI.manager.SendData(className);
 ```
 
-If you want to clear all data for your class globally, call
+If you want to delete all global data for your class, call
 ```
+/// This deletes ALL data, so use this only when you want to completely reset your AI
 MongoAI.manager.ClearData(className);
 ```
 
-The reason why every funciton has a className parameter is so you can separate your parameters for different types of objects. For example, I want to simultaneously run Genetic Algorithms on Boxes and Circles, but I want them to have separate genes, so I use different class names and Stitch will know to put them in different collections.
+The reason why every function has a className parameter is so you can separate your parameters for different types of objects. For example, I want to simultaneously run Genetic Algorithms on Boxes and Circles, but I want them to have separate genes, so I use different class names and Stitch will know to put them in different collections.
+
+## Testing for Internet Connection
+If you call MongoAI when you have no Internet connection, nothing will happen because you cannot connect to Stitch. Therefore, it may be helpful to validate if you have a connection.
+
+Call the following function if you want to verify that you can send a request to Mongo:
+`MongoAI.manager.HasInternetConnection();`
+
+If this is false, you will not be able to use MongoAI so you may want to consider how to handle this. It is up to you to decide how to proceed.
