@@ -48,24 +48,33 @@ public class Box : MonoBehaviour {
             // This is for handling if the player is unable to connect to the remote database
             // so they can continue to play even if they have no wifi
             Debug.LogError("Connection to the database failed");
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         
         // Setup class variables
         className = GetType().Name; // The name of this class stored for the AI
-        if(!prepopulate){MongoAI.manager.ClearData(className);} // We don't want it deleted if we are about to prepopulate
+        if(!prepopulate){
+            // We want to delete here for demonstration purposes.
+            // Otherwise any time you view this, the first box to spawn would be the goal color.
+            // We want to delete all prior data so the box starts from scratch
+            // so you can watch it evolve
+            MongoAI.manager.ClearData(className);
+        }
         lastTime = Time.time;
         startTime = Time.time;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // MongoAI Stuff
-        if(prepopulate){MongoAI.manager.CacheData(className, 40);} // Only bother caching if we need to
+        if(prepopulate){
+            // We are just going to fetch 40 different chromosomes and cache them until we need them
+            // The population has been prepopulated so it will load quicker, but not evolve as fast
+            MongoAI.manager.CacheData(className, 40);
+        }
         UpdateProperties();
     }
 
     private void Update() {
         if (Time.time - lastTime > timeInterval && !reachGoal) {
-            SaveAIData();
+            SaveAIData(); 
             SubmitAIData();
             UpdateProperties();
             lastTime = Time.time;
@@ -101,7 +110,7 @@ public class Box : MonoBehaviour {
 
     private float AIHeuristic() {
         // Our heuristic will be how far the 2 colors are as points in a 3D plane
-        // Determining a heuristic (the fun part!) is for you
+        // Determining a heuristic (the fun part) is for you
         // We take the negative of distance because lower distance is better
 
         float r = spriteRenderer.color.r;
@@ -114,7 +123,7 @@ public class Box : MonoBehaviour {
         float distance = -Vector3.Distance(current, desired);
 
         // If it is within 90px, then good estimation
-        if (Mathf.Abs(distance) < 80.0f/255.0f) {
+        if (Mathf.Abs(distance) < 90.0f/255.0f) {
             reachGoal = true;
             transform.localScale = new Vector3(60,60,0);
         }
