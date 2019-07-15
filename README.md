@@ -104,9 +104,11 @@ MongoAI.manager.ClearData(className);
 The reason why every function has a className parameter is so you can separate your parameters for different types of objects. For example, I want to simultaneously run Genetic Algorithms on Boxes and Circles, but I want them to have separate genes, so I use different class names and Stitch will know to put them in different collections.
 
 ## Testing for Internet Connection
-If you call MongoAI when you have no Internet connection, nothing will happen because you cannot connect to Stitch. Therefore, it may be helpful to validate if you have a connection.
+If you call MongoAI when you have no Internet connection, nothing will happen because you cannot connect to Stitch. Therefore, it may be helpful to validate if you have a connection before you make any requests or saves with MongoAI.
 
 Call the following function if you want to verify that you can send a request to Mongo:
-`MongoAI.manager.HasInternetConnection();`
+```
+MongoAI.manager.HasInternetConnection();
+```
 
 If this is false, you will not be able to use MongoAI so you may want to consider how to handle this. It is up to you to decide how to proceed.
