@@ -22,7 +22,7 @@ Go to https://www.youtube.com/watch?v=FJ308O_f0IM at the 4:00 minute mark if you
 
 Change your .NET Scripting Runtime to .NET 4.x Equivalent. Restart your editor and change API Compatability Level to 4.0.
 
-Follow along with Box.cs
+Follow along with Box.cs. Box.cs is the code for the Demo Scene you can see starting at the 2:30 mark of the video mentioned above. In this example, we use a genetic algorithm to evolve a box's color to a color specified in the editor.
 
 ## Setting up Your Class
 Define public variables at the top of your code. All genetic properties should be floats.
