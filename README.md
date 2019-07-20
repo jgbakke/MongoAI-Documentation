@@ -16,7 +16,9 @@ Currently there is a Demo Mac App that you can download. The Demo app will soon 
 ## Getting Started
 This is currently in Beta. If you would like to be a part of the Beta, please contact me.
 
-Download the MongoAI Driver Unity Package. (Only available to those part of Beta)
+Download the MongoAI SDK Unity Package.
+**Note that this package is currently only available to those in Beta. It will be made publicly available in the future. Contact me if you would like to be part of the beta.**
+
 Import the Package in Unity
 Go to https://www.youtube.com/watch?v=FJ308O_f0IM at the 4:00 minute mark if you do not know how to import packages to Unity. It is a simple process.
 
