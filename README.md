@@ -5,26 +5,29 @@ As a Unity Developer, I always strive to create useful tools for myself and othe
 
 Genetic Algorithms are a good solution to optimize and evolve parameters in game development. However, they require a very large dataset to be effective. MongoAI solves that issue by providing a Backend-as-a-Service solution that aggregates all AI data on every single instance of your game. A user (a game developer) can program their game to "save" the data. Under the hood, this tool will send their data to Stitch, which will store it in a MongoDB Atlas instance. When you want to Instantiate a new object with optimized AI parameters, you just tell the tool you want a new child, and MongoAI will look through the Atlas Database, pick the fittest "genes", and apply a Genetic Algorithm which gives you back your parameters.
 
-Tests I conducted have showed how well this data aggregation feature works. I first tried multiple tests with an Example project to see how long evolution would take. In this example, there is a Box with RGB values, and these RGB values would evolve over time to achieve a desired color.
+Tests conducted have showed how well this data aggregation feature works. I first tried multiple tests with an Example project to see how long evolution would take. In this example, there is a Box with RGB values, and these RGB values would evolve over time to achieve a desired color.
 
 When running 1 instance, it took on average 53 generations--a long time for evolution for a game. When running 2 instances concurrently, it took about 16 generations per instance. When running 4 instances, it took less than 10 generations per instance.
 
 By collecting more data from every single instance, MongoAI enables faster evolution for your parameters. In a world where gamers are smart and always getting better, you need to quickly evolve, or your AI will no longer remain exciting and engaging to play against. The speed at which MongoAI enables evolution will present a challenge to your players and keep them involved with your game.
 
-Currently there is a Demo Mac App that you can download. The Demo app will soon be ported to Windows as well. The MongoAI Driver currently supports both Mac and Windows.
+Download the 2 Demo Apps and watch how it works. You can also try running multiple instances on your machine or another machine at once to observe how they will evolve quicker.
+
+The MongoAI Driver currently supports both Mac OS X and Windows.
 
 ## Getting Started
 This is currently in Beta. If you would like to be a part of the Beta, please contact me.
 
-Download the MongoAI SDK Unity Package.
+Download the MongoAI Unity Package.
 **Note that this package is currently only available to those in Beta. It will be made publicly available in the future. Contact me if you would like to be part of the beta.**
 
-Import the Package in Unity
-Go to https://www.youtube.com/watch?v=FJ308O_f0IM at the 4:00 minute mark if you do not know how to import packages to Unity. It is a simple process.
+Import the Package in Unity.
 
 Change your .NET Scripting Runtime to .NET 4.x Equivalent. Restart your editor and change API Compatability Level to 4.0.
 
-Follow along with Box.cs. Box.cs is the code for the Demo Scene you can see starting at the 2:30 mark of the video mentioned above. In this example, we use a genetic algorithm to evolve a box's color to a color specified in the editor.
+Go to Build Settings->Player Settings. Change your Company Name and the Game Name. These attributes are used by MongoAI to identify your game and prevent storage collisions with other games. If you do not change your game or company, you will retrieve data from another company's example projects when you try to run it, or any game and company that uses an equivalent identifier.
+
+Follow along with Box.cs. Box.cs is the code for the Box Demo Game. In this example, we use a genetic algorithm to evolve a box's color to a color specified in the editor.
 
 ## Setting up Your Class
 Define public variables at the top of your code. All genetic properties should be floats.
@@ -55,7 +58,7 @@ Caching does not evolve as fast because you load one giant batch of children and
 Whenever you want to update your genetic properties, call this function.
 
 ```
-MongoAI.manager.PopulateProperties(this, geneticProperties, <name of this class>, <Number of Chromosomes to fetch>, <mutation percent>, <crossover?>);
+MongoAI.manager.PopulateProperties(this, geneticProperties, <name of this class>, <Number of Most Fit Individuals to fetch>, <mutation percent>, <crossover?>);
 ```
 
 Number of chromosomes is how many will be retrieved. If you pick 5 for example, the 5 most fit individuals will be used in the Genetic Algorithm. 1 of these 5 at random will be chosen, and another 1 will be crossed over with it. Therefore, your new chromosome could be made up of the 4th and 5th most fit individuals.
@@ -69,13 +72,13 @@ Crossover: True to enable genetic crossover, false otherwise. This increases gen
 If you want to cache properties instead, call this.
 
 ```
-MongoAI.manager.CacheData(className, number in cache);
+MongoAI.manager.CacheData(className, <number to cache>);
 ```
 
 This generates however many offspring you want in the cache. Because MongoAI.manager is accessible to all classes, anybody can use the cache now. When you want to get updated genetic properties, just call
 
 ```
-MongoAI.manager.PopulateFromCache(this, geneticProperties, <name of this class>, <Number of Chromosomes to fetch>, <mutation percent>, <crossover?>);
+MongoAI.manager.PopulateFromCache(this, geneticProperties, <name of this class>, <Number of Most Fit Individuals to fetch>, <mutation percent>, <crossover?>);
 ```
 
 This works exactly the same as PopulateProperties except the data is already cached so it is very fast.
@@ -114,3 +117,15 @@ MongoAI.manager.HasInternetConnection();
 ```
 
 If this is false, you will not be able to use MongoAI so you may want to consider how to handle this. It is up to you to decide how to proceed.
+
+# A More Interesting Example: An AI Platformer
+
+In the previous example, we looked at using MongoAI to evolve the color of a box. Now we will examine a more intersting use case. If you look at ```Platformer2DUserControl.cs```, this is the code to control the character in the MongoAI Platformer Demo. In this game, the AI tries to jump over a set of boxes of varying heights and widths.
+
+The AI has 3 choices to make: How fast to run, how hard to jump, and how early before a box to jump. Run the demo project and watch the AI optimize its parameters.
+
+Tests I conducted on this showed that while running 1 instance, the AI took almost 200 seconds to reach the goal.
+While running 4 instances, it took almost 50 seconds.
+When running 8 instances, it took about 30 seconds.
+
+When looking at the data, it is easy to see how much faster MongoAI can speed up evolution.
