@@ -1,3 +1,7 @@
+# Demo Videos
+[Platformer Demo](https://www.youtube.com/watch?v=zhdwVdtIMCU)
+[Box Demo](https://www.youtube.com/watch?v=EOk0At5IzqI)
+
 # MongoAI-Documentation
 Documentation for MongoAI Project
 
@@ -5,11 +9,9 @@ As a Unity Developer, I always strive to create useful tools for myself and othe
 
 Genetic Algorithms are a good solution to optimize and evolve parameters in game development. However, they require a very large dataset to be effective. MongoAI solves that issue by providing a Backend-as-a-Service solution that aggregates all AI data on every single instance of your game. A user (a game developer) can program their game to "save" the data. Under the hood, this tool will send their data to Stitch, which will store it in a MongoDB Atlas instance. When you want to Instantiate a new object with optimized AI parameters, you just tell the tool you want a new child, and MongoAI will look through the Atlas Database, pick the fittest "genes", and apply a Genetic Algorithm which gives you back your parameters.
 
-Tests conducted have showed how well this data aggregation feature works. I first tried multiple tests with an Example project to see how long evolution would take. In this example, there is a Box with RGB values, and these RGB values would evolve over time to achieve a desired color.
-
-When running 1 instance, it took on average 53 generations--a long time for evolution for a game. When running 2 instances concurrently, it took about 16 generations per instance. When running 4 instances, it took less than 10 generations per instance.
-
 By collecting more data from every single instance, MongoAI enables faster evolution for your parameters. In a world where gamers are smart and always getting better, you need to quickly evolve, or your AI will no longer remain exciting and engaging to play against. The speed at which MongoAI enables evolution will present a challenge to your players and keep them involved with your game.
+
+In addition to just AI, you can use MongoAI in many different use cases. For example, MongoAI can be used to automate and implement Multivariate Testing to help make your User Interface more successful.
 
 Download the 2 Demo Apps and watch how it works. You can also try running multiple instances on your machine or another machine at once to observe how they will evolve quicker.
 
