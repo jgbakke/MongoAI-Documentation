@@ -27,7 +27,11 @@ Import the Package in Unity.
 
 Change your .NET Scripting Runtime to .NET 4.x Equivalent. Restart your editor and change API Compatability Level to 4.0.
 
-Go to Build Settings->Player Settings. Change your Company Name and the Game Name. These attributes are used by MongoAI to identify your game and prevent storage collisions with other games. If you do not change your game or company, you will retrieve data from another company's example projects when you try to run it, or any game and company that uses an equivalent identifier.
+Go to Build Settings->Player Settings. Change your Company Name and the Game Name. These attributes are used by MongoAI to identify your game and prevent storage collisions with other games. If you do not change your game or company, you **will** retrieve data from another company's example projects when you try to run it, or any game and company that uses an equivalent identifier.
+
+![picture](https://raw.githubusercontent.com/jgbakke/MongoAI-Documentation/master/Company%20Name%20Change.png)
+
+**You should always change your Company Name and Game Name at the start of a new project. You may get collisions with other games if you do not.**
 
 Follow along with Box.cs. Box.cs is the code for the Box Demo Game. In this example, we use a genetic algorithm to evolve a box's color to a color specified in the editor.
 
