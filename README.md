@@ -28,10 +28,7 @@ When looking at the data, it is easy to see how much faster MongoAI can speed up
 # Tutorial
 
 ## Getting Started
-This is currently in Beta. If you would like to be a part of the Beta, please contact me.
-
-Download the MongoAI Unity Package.
-**Note that this package is currently only available to those in Beta. It will be made publicly available in the future. Contact me if you would like to be part of the beta.**
+Clone this repository and save the MongoAI.unitypackage to your computer.
 
 Import the Package in Unity.
 
@@ -106,7 +103,7 @@ When you want to save data call:
 MongoAI.manager.SaveData(this, geneticProperties, className, AIHeuristic());
 ```
 
-The last property should be a value that determines how fit the individual is, where higher is better. For example, AIHeuristic() is a function in the Demo App that returns 0 - the distance from the current color to the desired color. Therefore, closer colors will be considered more fit, and will thus be prioritized once they are sent to the database.
+The last property should be a value that determines how fit the individual is, where higher is better. For example, AIHeuristic() is a function in the Demo App that returns ```0 - the distance from the current color to the desired color```. Therefore, closer colors will be considered more fit, and will thus be prioritized once they are sent to the database.
 
 This *does not* save it globally yet. It is cached for the time being, until you send it. The best practice for sending data is whenever you are not as concerned with performance. (For example, at the end of a level) You would call this when an enemy dies, for example, to cache it for now, but not send it yet.
 
@@ -132,4 +129,4 @@ Call the following function if you want to verify that you can send a request to
 MongoAI.manager.HasInternetConnection();
 ```
 
-If this is false, you will not be able to use MongoAI so you may want to consider how to handle this. It is up to you to decide how to proceed.
+If this is false, you will not be able to use MongoAI so you may want to consider how to handle this. It is up to you to decide how to proceed. Usually, doing nothing will be fine because not having a connection will result in nothing getting updated, so the properties will just be the default properties configured in the Unity Editor.
