@@ -5,13 +5,25 @@
 # MongoAI-Documentation
 Documentation for MongoAI Project
 
-MongoAI is a Backend-as-a-Service tool to automatically evolve your AI by collecting data from every instance of your game running worldwide and applying an evolutionary algorithm. MongoAI accelerates your AI development by enabling you to run many multiple instances in development before release to find your best parameters, or to evolve in response to players.
+MongoAI is a Backend-as-a-Service tool to automatically evolve your AI by collecting data from every instance of your game running worldwide and applying a genetic algorithm. MongoAI accelerates your AI development by enabling you to run many multiple instances in development before release to find your best parameters, or to evolve in response to players.
 
 By collecting more data from every single instance, MongoAI enables faster evolution for your parameters. In a world where gamers are smart and always getting better, you need to quickly evolve, or your AI will no longer remain exciting and engaging to play against. The speed at which MongoAI enables evolution will present a challenge to your players and keep them involved with your game.
 
 Download the 2 Demo Apps from the demos directory and watch how it works. You can also try running multiple instances on your machine or another machine at once to observe how they will evolve quicker. The MongoAI-related source code for these is available in the examples directory, so you can follow along with the code.
 
 The MongoAI Driver currently supports both Mac OS X and Windows.
+
+# Example: An AI Platformer
+
+This is an example for how MongoAI was used to help a game AI learn how to beat a platformer level. If you look at ```examples/PlatformerDemo.cs```, this is the code to control the character in the MongoAI Platformer Demo. In this game, the AI tries to jump over a set of boxes of varying heights and widths.
+
+The AI has 3 choices to make: How fast to run, how hard to jump, and how early before a box to jump. Run the demo project and watch the AI optimize its parameters.
+
+Tests I conducted on this showed that while running 1 instance, the AI took almost 200 seconds to reach the goal.
+While running 4 instances, it took almost 50 seconds.
+When running 8 instances, it took about 30 seconds.
+
+When looking at the data, it is easy to see how much faster MongoAI can speed up evolution.
 
 # Tutorial
 
@@ -31,7 +43,7 @@ Go to Build Settings->Player Settings. Change your Company Name and the Game Nam
 
 **You should always change your Company Name and Game Name at the start of a new project. You may get collisions with other games if you do not.**
 
-Follow along with Box.cs. Box.cs is the code for the Box Demo Game. In this example, we use a genetic algorithm to evolve a box's color to a color specified in the editor.
+Follow along with examples/BoxDemo.cs. BoxDemo.cs is the code for the Box Demo Game. In this example, we use a genetic algorithm to evolve a box's color to a color specified in the editor.
 
 ## Setting up Your Class
 Define public variables at the top of your code. All genetic properties should be floats.
@@ -69,7 +81,7 @@ Number of chromosomes is how many will be retrieved. If you pick 5 for example, 
 
 Mutation percent: On a scale of 0 to 1, each gene may vary by up to this much percent. For example, if you have a property x at 10, and a mutation of 0.1f, mutation can change it at random anywhere from 9.0 to 11.0.
 
-Crossover: True to enable genetic crossover, false otherwise. This increases genetic diversity.
+Crossover: This increases genetic diversity. This works by taking a random number of properties from another individual and swapping them to use in the selected chrorosome. Therefore, you get genes from 2 different individuals. True to enable genetic crossover, false otherwise. 
 
 ## Caching
 
@@ -121,15 +133,3 @@ MongoAI.manager.HasInternetConnection();
 ```
 
 If this is false, you will not be able to use MongoAI so you may want to consider how to handle this. It is up to you to decide how to proceed.
-
-# A More Interesting Example: An AI Platformer
-
-In the previous example, we looked at using MongoAI to evolve the color of a box. Now we will examine a more intersting use case. If you look at ```Platformer2DUserControl.cs```, this is the code to control the character in the MongoAI Platformer Demo. In this game, the AI tries to jump over a set of boxes of varying heights and widths.
-
-The AI has 3 choices to make: How fast to run, how hard to jump, and how early before a box to jump. Run the demo project and watch the AI optimize its parameters.
-
-Tests I conducted on this showed that while running 1 instance, the AI took almost 200 seconds to reach the goal.
-While running 4 instances, it took almost 50 seconds.
-When running 8 instances, it took about 30 seconds.
-
-When looking at the data, it is easy to see how much faster MongoAI can speed up evolution.
