@@ -28,7 +28,7 @@ When looking at the data, it is easy to see how much faster MongoAI can speed up
 # Tutorial
 
 ## Getting Started
-Clone this repository and save the MongoAI.unitypackage to your computer.
+Clone this repository and save the MongoAI.unitypackage to your computer. Note that this package contains all example assets and code. If you only need MongoAI and do not care about example projects, you should instead use MongoAI_Development_Package.unitypackage.
 
 Import the Package in Unity.
 
