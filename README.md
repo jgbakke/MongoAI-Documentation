@@ -71,10 +71,12 @@ Caching does not evolve as fast because you load one giant batch of children and
 Whenever you want to update your genetic properties, call this function.
 
 ```
-MongoAI.manager.PopulateProperties(this, geneticProperties, <name of this class>, <Number of Most Fit Individuals to fetch>, <mutation percent>, <crossover?>);
+MongoAI.manager.PopulateProperties(this, geneticProperties, <aiClassName>, <Number of Most Fit Individuals to fetch>, <mutation percent>, <crossover?>);
 ```
 
-Number of chromosomes is how many will be retrieved. If you pick 5 for example, the 5 most fit individuals will be used in the Genetic Algorithm. 1 of these 5 at random will be chosen, and another 1 will be crossed over with it. Therefore, your new chromosome could be made up of the 4th and 5th most fit individuals.
+aiClassName: This is a specific class of AI that is an instantation of the class passed by ```this```. If you want 2 types of AI to evolve to 2 different goals, and each AI uses the same base class, you would come up with different aiClassName values. For example, in the BoxDemo, if you also wanted it to work with circle, but wanted the circle to evolve to a different color, you could choose to use "Box" as the value for the aiClassName for boxes and "Circle" for circles. Note that aiClassName does not need to be the name of a C# class in your project; aiClassName is only for identifying what type of AI this is.
+
+Number of Most Fit Individuals is how many will be retrieved. If you pick 5 for example, the 5 most fit individuals will be used in the Genetic Algorithm. 1 of these 5 at random will be chosen, and another 1 will be crossed over with it. Therefore, your new chromosome could be made up of the 4th and 5th most fit individuals.
 
 Mutation percent: On a scale of 0 to 1, each gene may vary by up to this much percent. For example, if you have a property x at 10, and a mutation of 0.1f, mutation can change it at random anywhere from 9.0 to 11.0.
 
@@ -85,13 +87,13 @@ Crossover: This increases genetic diversity. This works by taking a random numbe
 If you want to cache properties instead, call this.
 
 ```
-MongoAI.manager.CacheData(className, <number to cache>);
+MongoAI.manager.CacheData(aiClassName, <number to cache>);
 ```
 
 This generates however many offspring you want in the cache. Because MongoAI.manager is accessible to all classes, anybody can use the cache now. When you want to get updated genetic properties, just call
 
 ```
-MongoAI.manager.PopulateFromCache(this, geneticProperties, <name of this class>, <Number of Most Fit Individuals to fetch>, <mutation percent>, <crossover?>);
+MongoAI.manager.PopulateFromCache(this, geneticProperties, aiClassName, <Number of Most Fit Individuals to fetch>, <mutation percent>, <crossover?>);
 ```
 
 This works exactly the same as PopulateProperties except the data is already cached so it is very fast.
@@ -100,7 +102,7 @@ This works exactly the same as PopulateProperties except the data is already cac
 When you want to save data call:
 
 ```
-MongoAI.manager.SaveData(this, geneticProperties, className, AIHeuristic());
+MongoAI.manager.SaveData(this, geneticProperties, aiClassName, AIHeuristic());
 ```
 
 The last property should be a value that determines how fit the individual is, where higher is better. For example, AIHeuristic() is a function in the Demo App that returns ```0 - the distance from the current color to the desired color```. Therefore, closer colors will be considered more fit, and will thus be prioritized once they are sent to the database.
@@ -110,16 +112,14 @@ This *does not* save it globally yet. It is cached for the time being, until you
 Once you are ready to send, call
 
 ```
-MongoAI.manager.SendData(className);
+MongoAI.manager.SendData(aiClassName);
 ```
 
 If you want to delete all global data for your class, call
 ```
 /// This deletes ALL data, so use this only when you want to completely reset your AI
-MongoAI.manager.ClearData(className);
+MongoAI.manager.ClearData(aiClassName);
 ```
-
-The reason why every function has a className parameter is so you can separate your parameters for different types of objects. For example, I want to simultaneously run Genetic Algorithms on Boxes and Circles, but I want them to have separate genes, so I use different class names and Stitch will know to put them in different collections.
 
 ## Testing for Internet Connection
 If you call MongoAI when you have no Internet connection, nothing will happen because you cannot connect to Stitch. Therefore, it may be helpful to validate if you have a connection before you make any requests or saves with MongoAI.
