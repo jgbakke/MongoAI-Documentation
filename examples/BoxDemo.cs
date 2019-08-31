@@ -11,7 +11,7 @@ public class Box : MonoBehaviour {
     // You need a list of the properties you want controlled for AI
     public List<string> geneticProperties = new List<string>();
     
-    // Just doing this as a shorthand to save time later
+    // Shorthand access for function calls
     private string className;
     
     // This is only for our example
@@ -61,7 +61,7 @@ public class Box : MonoBehaviour {
             MongoAI.manager.ClearData(className);
         }
         lastTime = Time.time;
-        startTime = Time.time;
+        startTime = lastTime;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         if(prepopulate){
