@@ -1,6 +1,5 @@
 # Demo Videos
 [Platformer Demo](https://www.youtube.com/watch?v=zhdwVdtIMCU)
-[Box Demo](https://www.youtube.com/watch?v=EOk0At5IzqI)
 
 # MongoAI-Documentation
 Documentation for MongoAI Project
